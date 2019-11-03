@@ -48,7 +48,7 @@ model = MiniVGGNet.build(width=64, height=64, depth=3, classes=len(classNames))
 model.compile(loss="categorical_crossentropy", optimizer=opt, metrics=["accuracy"])
 
 # train the network
-model.fit(trainx, trainy, validation_data=(testx, testy), batch_size=32, epochs=100, verbose=1)
+H = model.fit(trainx, trainy, validation_data=(testx, testy), batch_size=32, epochs=100, verbose=1)
 
 # evaluate the network
 print("[INFO] evaluating the network...")
@@ -66,4 +66,5 @@ plt.title("Training Loss and Accuracy")
 plt.xlabel("Epoch")
 plt.ylabel("Loss/Accuracy")
 plt.legend()
+plt.save("minivggnet_flowers17.jpg")
 plt.show()
