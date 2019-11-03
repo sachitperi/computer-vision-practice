@@ -48,7 +48,7 @@ model = MiniVGGNet.build(width=64, height=64, depth=3, classes=len(classNames))
 model.compile(loss="categorical_crossentropy", optimizer=opt, metrics=["accuracy"])
 
 # train the network
-H = model.fit(trainx, trainy, validation_data=(testx, testy), batch_size=32, epochs=1, verbose=1)
+H = model.fit(trainx, trainy, validation_data=(testx, testy), batch_size=32, epochs=100, verbose=1)
 
 # evaluate the network
 print("[INFO] evaluating the network...")
@@ -58,10 +58,10 @@ print(classification_report(testy.argmax(axis=1), predictions.argmax(axis=1), ta
 # plot the training loss and accuracy
 plt.style.use("ggplot")
 plt.figure()
-plt.plot(np.arange(0, 1), H.history["loss"], label="training loss")
-plt.plot(np.arange(0, 1), H.history["val_loss"], label="validation loss")
-plt.plot(np.arange(0, 1), H.history["accuracy" if "accuracy" in H.history.keys() else "acc"], label="training accuracy")
-plt.plot(np.arange(0, 1), H.history["val_accuracy" if "val_accuracy" in H.history.keys() else "val_acc"], label="validation accuracy")
+plt.plot(np.arange(0, 100), H.history["loss"], label="training loss")
+plt.plot(np.arange(0, 100), H.history["val_loss"], label="validation loss")
+plt.plot(np.arange(0, 100), H.history["accuracy" if "accuracy" in H.history.keys() else "acc"], label="training accuracy")
+plt.plot(np.arange(0, 100), H.history["val_accuracy" if "val_accuracy" in H.history.keys() else "val_acc"], label="validation accuracy")
 plt.title("Training Loss and Accuracy")
 plt.xlabel("Epoch")
 plt.ylabel("Loss/Accuracy")
