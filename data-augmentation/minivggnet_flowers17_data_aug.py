@@ -54,23 +54,23 @@ model.compile(loss="categorical_crossentropy", optimizer=opt, metrics=["accuracy
 # train the network
 print("[INFO] training network...")
 H = model.fit(aug.flow(trainx, trainy, batch_size=32),
-              validation_data=(testx, testy), steps_per_epoch=len(trainx)//32, epochs=100, verbose=1)
+              validation_data=(testx, testy), steps_per_epoch=len(trainx)//32, epochs=1, verbose=1)
 
 # evaluate the network
 print("[INFO] evaluating the network...")
 predictions = model.predict(testx)
-classification_report(testy.argmax(axis=1), predictions.argmax(axis=1), target_names=classNames)
+print(classification_report(testy.argmax(axis=1), predictions.argmax(axis=1), target_names=classNames))
 
 # plot the training loss and accuracy
 plt.style.use("ggplot")
 plt.figure()
-plt.plot(np.arange(0, 100), H.history["loss"], label="training loss")
-plt.plot(np.arange(0, 100), H.history["val_loss"], label="validation loss")
-plt.plot(np.arange(0, 100), H.history["acc"], label="training accuracy")
-plt.plot(np.arange(0, 100), H.history["val_acc"], label="validation accuracy")
+plt.plot(np.arange(0, 1), H.history["loss"], label="training loss")
+plt.plot(np.arange(0, 1), H.history["val_loss"], label="validation loss")
+plt.plot(np.arange(0, 1), H.history["acc"], label="training accuracy")
+plt.plot(np.arange(0, 1), H.history["val_acc"], label="validation accuracy")
 plt.title("Training Loss and Accuracy")
 plt.xlabel("Epoch")
 plt.ylabel("Loss/Accuracy")
 plt.legend()
-plt.save("minivggnet_flowers17_data_aug.jpg")
+plt.savefig("minivggnet_flowers17_data_aug.jpg")
 plt.show()
