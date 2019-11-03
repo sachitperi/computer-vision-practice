@@ -6,7 +6,7 @@ from utilities.preprocessing import ImageToArrayPreprocessor
 from utilities.preprocessing import AspectAwarePreprocessor
 from utilities.datasets import SimpleDatasetLoader
 from utilities.nn import MiniVGGNet
-from keras.preprrocessing.image import ImageDataGenerator
+from keras.preprocessing.image import ImageDataGenerator
 from keras.optimizers import SGD
 from imutils import paths
 import matplotlib.pyplot as plt
@@ -19,6 +19,12 @@ ap = argparse.ArgumentParser()
 ap.add_argument("-d", "--dataset", required=True,
                 help="path to input dataset")
 args = vars(ap.parse_args())
+
+# grab the list of images to describe and extract the label names from image paths
+print("[INFO] Loading images...")
+imagePaths = list(paths.list_images(args["dataset"]))
+classNames = [pt.split(os.path.sep)[-2] for pt in imagePaths]
+classNames = [str(x) for x in np.unique(classNames)]
 
 # initialize the image preprocessor
 aap = AspectAwarePreprocessor(64, 64)
